@@ -1,7 +1,8 @@
 const {StatusCodes}=require('http-status-codes')
 const User = require('../models/User')
-const {BadRequestError}=require('../errors')
+const {BadRequestError,UnauthenticatedError}=require('../errors')
 const jwt = require('jsonwebtoken')
+const {createJob} = require("./jobs");
 
 const register  = async (req,res)=>{
     // const{name,email,password}=req.body
@@ -14,7 +15,17 @@ const register  = async (req,res)=>{
 }
 
 const login  = async (req,res)=>{
-    res.status(StatusCodes.OK).send('user connected')
+    const {email,password} = req.body
+    if(!email || !password){
+        throw BadRequestError('please provide both your email and password')
+    }
+    const user =await User.findOne({email:email})
+    //compare password
+    if (!user){
+        throw UnauthenticatedError('please verify your credentials')
+    }
+    const token = user.createJWT()
+    res.status(StatusCodes.OK).json({name: user.name,token})
 }
 
 module.exports = {register,login}
