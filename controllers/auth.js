@@ -17,13 +17,13 @@ const register  = async (req,res)=>{
 const login  = async (req,res)=>{
     const {email,password} = req.body
     if(!email || !password){
-        throw BadRequestError('please provide both your email and password')
+        throw new BadRequestError('please provide both your email and password')
     }
     const user =await User.findOne({email:email})
     const isCorrect =await user.comparePassword(password)
     console.log(isCorrect)
-    if (!isCorrect) {
-        throw BadRequestError('please verify your credentials')
+    if (!isCorrect || !user) {
+        throw new UnauthenticatedError('please verify your credentials')
     }
     const token = user.createJWT()
     res.status(StatusCodes.OK).json({name: user.name,token})
