@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken')
 const { UnauthenticatedError}=require('../errors')
-const User = require('../models/User')
 require('dotenv').config()
 
 const authenticate = async (req,res,next)=>{
@@ -15,12 +14,11 @@ const authenticate = async (req,res,next)=>{
         // req.user=user
         req.user={ userId: decoded.userId, name: decoded.username }
         // res.locals.user={ userId: decoded.userId, name: decoded.username }
-        next()
+        return next()
     }
     catch (err){
         throw new UnauthenticatedError('unauthorized :(')
     }
-    next()
 }
 
 module.exports = authenticate

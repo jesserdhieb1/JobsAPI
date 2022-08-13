@@ -6,7 +6,7 @@ const app = express();
 //connectDB
 const connectDB = require('./db/connect')
 //auth method
-const auth = require('./middleware/authentication')
+const authenticate = require('./middleware/authentication')
 //routes
 const authRoute = require('./routes/auth')
 const jobsRoutes = require('./routes/jobs')
@@ -18,8 +18,9 @@ app.use(express.json());
 // extra packages
 
 // routes
+// app.use('/api/v1/jobs',authenticate,jobsRoutes)
+app.use('/api/v1/jobs',jobsRoutes)
 app.use('/api/v1/auth',authRoute)
-app.use('/api/v1/jobs',auth,jobsRoutes)
 
 
 app.use(errorHandlerMiddleware);
