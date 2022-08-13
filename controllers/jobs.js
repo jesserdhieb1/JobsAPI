@@ -4,7 +4,8 @@ const {BadRequestError,NotFoundError} = require('../errors')
 
 
 const getAllJobs  = async (req,res)=>{
-    res.status(StatusCodes.OK).send('get all jobs')
+    const jobs =await Job.find({})
+    res.status(StatusCodes.OK).json({jobs})
 }
 
 const getJob = async (req,res)=>{
@@ -13,10 +14,8 @@ const getJob = async (req,res)=>{
 
 const createJob  = async (req,res)=>{
     req.body.createdBy=req.user.userId
-    // const job =await Job.create(req.body)
-    const job =await Job.find({})
-    // console.log(job)
-     return res.status(StatusCodes.CREATED).json({job})
+    const job =await Job.create(req.body)
+    return res.status(StatusCodes.CREATED).json({job})
 }
 
 const updateJob  = async (req,res)=>{
