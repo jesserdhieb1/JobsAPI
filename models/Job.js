@@ -17,7 +17,7 @@ const JobSchema =mongoose.Schema({
         default:'pending'
     },
     createdBy:{
-        type:mongoose.Types.ObjectId,
+        type:mongoose.ObjectId,
         ref:'User',
         required:[true,'please provide a user']
     }
