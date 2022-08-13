@@ -21,7 +21,6 @@ const login  = async (req,res)=>{
     }
     const user =await User.findOne({email:email})
     const isCorrect =await user.comparePassword(password)
-    console.log(isCorrect)
     if (!isCorrect || !user) {
         throw new UnauthenticatedError('please verify your credentials')
     }
