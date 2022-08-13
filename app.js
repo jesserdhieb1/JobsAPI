@@ -18,8 +18,7 @@ app.use(express.json());
 // extra packages
 
 // routes
-// app.use('/api/v1/jobs',authenticate,jobsRoutes)
-app.use('/api/v1/jobs',jobsRoutes)
+app.use('/api/v1/jobs',authenticate,jobsRoutes)
 app.use('/api/v1/auth',authRoute)
 
 
