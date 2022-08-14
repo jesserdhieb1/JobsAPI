@@ -1,5 +1,6 @@
 const { CustomAPIError } = require('../errors')
 const { StatusCodes } = require('http-status-codes')
+const {custom} = require("joi");
 const errorHandlerMiddleware = (err, req, res, next) => {
   let CustomError = {
     statusCode:err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
@@ -8,7 +9,13 @@ const errorHandlerMiddleware = (err, req, res, next) => {
   // if (err instanceof CustomAPIError) {
   //   return res.status(err.statusCode).json({ msg: err.message })
   // }
-  //create special function for model validation
+  //create special functions for model validation
+  if (err.name==='ValidationError'){
+    // console.log(Object.values(err.errors))
+    CustomError.msg=Object.values(err.errors)
+        .map((item)=>item.message).join(', ')
+    CustomError.statusCode=400
+  }
   if (err.code && err.code===11000){
     CustomError.msg=`Duplicate value entered for email failed please choose another value`
     CustomError.statusCode= 400
