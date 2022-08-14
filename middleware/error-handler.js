@@ -8,6 +8,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
   // if (err instanceof CustomAPIError) {
   //   return res.status(err.statusCode).json({ msg: err.message })
   // }
+  //create special function for model validation
   if (err.code && err.code===11000){
     CustomError.msg=`Duplicate value entered for email failed please choose another value`
     CustomError.statusCode= 400
