@@ -1,0 +1,225 @@
+openapi: 3.0.0
+info:
+  title: JobsAPI ExpressJs
+  contact: {}
+  version: '1.0'
+servers:
+  - url: https://jobs-express.herokuapp.com/api/v1
+    variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register Auth
+      operationId: RegisterAuth
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterAuthRequest'
+            example:
+              name: gha
+              email: gha@gmail.com
+              password: '123456'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login Auth
+      operationId: LoginAuth
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginAuthRequest'
+            example:
+              email: lat@gmail.com
+              password: '123456'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /jobs:
+    post:
+      tags:
+        - Job
+      summary: Create Job
+      operationId: CreateJob
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateJobRequest'
+            example:
+              company: GHDH
+              position: farmer
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    get:
+      tags:
+        - Job
+      summary: Get All Jobs
+      operationId: GetAllJobs
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /jobs/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The job id
+    get:
+      tags:
+        - Job
+      summary: Get Single Job
+      operationId: GetSingleJob
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - Job
+      summary: Delete Job
+      operationId: DeleteJob
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+
+    patch:
+      tags:
+        - Job
+      summary: Update Job
+      operationId: UpdateJob
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateJobRequest'
+            example:
+              company: GHDH wa chourakaouhoou
+              position: big big farmer
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+    RegisterAuthRequest:
+      title: RegisterAuthRequest
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: gha
+        email: gha@gmail.com
+        password: '123456'
+    LoginAuthRequest:
+      title: LoginAuthRequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: lat@gmail.com
+        password: '123456'
+    CreateJobRequest:
+      title: CreateJobRequest
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: GHDH
+        position: farmer
+    UpdateJobRequest:
+      title: UpdateJobRequest
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: GHDH wa chourakaouhoou
+        position: big big farmer
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: Misc
+    description: ''
+  - name: Auth
+    description: ''
+  - name: Job
+    description: ''
