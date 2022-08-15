@@ -1,6 +1,6 @@
 require('dotenv').config();
 require('express-async-errors');
-const rateLimit  =('express-rate-limit').default
+const rateLimit  =require('express-rate-limit')
 const helmet = require('helmet')
 const cors =require('cors')
 const xss = require('xss-clean')
@@ -20,6 +20,7 @@ const jobsRoutes = require('./routes/jobs')
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 app.set('trust proxy', 1);
+console.log(rateLimit)
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
